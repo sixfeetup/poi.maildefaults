@@ -1,3 +1,4 @@
+from datetime import datetime
 from persistent.dict import PersistentDict
 from zope import schema
 from zope import interface
@@ -18,38 +19,37 @@ class ISettings(interface.Interface):
         default=u'',
     )
 
+    # TODO: Change this to select widget
     area = schema.TextLine(
         title=u"Area",
         required=False,
         default=u'',
     )
 
+    # TODO: Change this to select widget
     issueType = schema.TextLine(
         title=u"Issue Type",
         required=False,
         default=u'',
     )
 
+    # TODO: Change this to select widget
     severity = schema.TextLine(
         title=u"Severity",
         required=False,
         default=u'',
     )
 
-    dueDate = schema.TextLine(
-        title=u"Required Due Date",
-        required=False,
-        default=u'',
-    )
-
+    # TODO: Change this to select widget
     targetRelease = schema.TextLine(
         title=u"Target Release",
         required=False,
         default=u'',
     )
 
-    responsible = schema.TextLine(
-        title=u"Responsible",
+    # TODO: Change this to select widget
+    responsibleManager = schema.TextLine(
+        title=u"Responsible Manager",
         required=False,
         default=u'',
     )
@@ -85,4 +85,9 @@ def mailin_settings(context):
     # Get all Annotations on the tracker
     annotations = IAnnotations(context)
     # return just our dictionary
-    return annotations.setdefault(KEY, PersistentDict())
+    issue_defaults = annotations.setdefault(KEY, PersistentDict())
+    # set a dueDate for today on a specific project
+    # TODO: add settings for changing dueDate
+    today = datetime.today()
+    issue_defaults['dueDate'] = today.strftime('%m/%d/%Y')
+    return issue_defaults
