@@ -15,7 +15,7 @@ long_description = (
 
 setup(name='poi.maildefaults',
       version=version,
-      description="Simple setting of Mail-in Defaults for Plone Poi Trackers",
+      description="Simple setting of mail-in defaults for Plone Poi Trackers",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
