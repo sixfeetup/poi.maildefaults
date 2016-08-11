@@ -43,6 +43,7 @@ setup(name='poi.maildefaults',
           'setuptools',
           # -*- Extra requirements: -*-
           'Plone>=4.1',
+          'poi.receivemail==1.12.3',
       ],
       entry_points="""
       # -*- Entry points: -*-
