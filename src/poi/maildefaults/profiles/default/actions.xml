@@ -6,7 +6,7 @@
       <property name="title" i18n:translate="">Mail Defaults</property>
       <property name="description" i18n:translate="">Default settings for issues that are mailed in</property>
       <property name="url_expr">string:$object_url/@@maildefaults-settings</property>
-      <property name="available_expr">python:object.portal_type == "PoiTracker"</property>
+      <property name="available_expr">python:object.portal_type == "Tracker"</property>
       <property name="permissions">
         <element value="Manage Portal" />
       </property>
