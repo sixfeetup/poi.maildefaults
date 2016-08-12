@@ -1,4 +1,3 @@
-from datetime import datetime
 from persistent.dict import PersistentDict
 from zope import schema
 from zope import interface
@@ -27,7 +26,7 @@ class ISettings(interface.Interface):
     )
 
     # TODO: Change this to select widget
-    issueType = schema.TextLine(
+    issue_type = schema.TextLine(
         title=u"Issue Type",
         required=False,
         default=u'',
@@ -41,15 +40,15 @@ class ISettings(interface.Interface):
     )
 
     # TODO: Change this to select widget
-    targetRelease = schema.TextLine(
+    target_release = schema.TextLine(
         title=u"Target Release",
         required=False,
         default=u'',
     )
 
     # TODO: Change this to select widget
-    responsibleManager = schema.TextLine(
-        title=u"Responsible Manager",
+    assignee = schema.TextLine(
+        title=u"Assignee",
         required=False,
         default=u'',
     )
@@ -86,8 +85,4 @@ def mailin_settings(context):
     annotations = IAnnotations(context)
     # return just our dictionary
     issue_defaults = annotations.setdefault(KEY, PersistentDict())
-    # set a dueDate for today on a specific project
-    # TODO: add settings for changing dueDate
-    today = datetime.today()
-    issue_defaults['dueDate'] = today.strftime('%m/%d/%Y')
     return issue_defaults
