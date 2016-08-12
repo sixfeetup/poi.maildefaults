@@ -1,7 +1,7 @@
 poi.maildefaults Overview
 =========================
 
-The ``poi.maildefaults`` add-on for Plone works with the `poi.recievemail <https://github.com/sixfeetup/poi.receivemail>`_ fork that has support for setting default values for fields that would noramlly be required if you were submitting the issue TTW. Currently it is very basic and doesn't do much validation of the values which means your Poi Issues could be invalid and not be created if you put in an incorrect value.
+The ``poi.maildefaults`` add-on for Plone works with the `poi.recievemail <https://github.com/sixfeetup/poi.receivemail>`_ fork that has support for setting default values for fields that would normally be required if you were submitting the issue TTW. Currently it is very basic and doesn't do much validation of the values which means your Poi Issues could be invalid and not be created if you put in an incorrect value.
 
 Installation
 ============
