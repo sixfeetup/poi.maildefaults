@@ -5,6 +5,8 @@ from zope.annotation.interfaces import IAnnotations
 from z3c.form import form, field, button
 from plone.z3cform import layout
 
+from Products.Poi import PoiMessageFactory as _
+from Products.Poi.content.tracker import possibleAreas
 
 KEY = 'poi.maildefaults'
 
@@ -18,11 +20,12 @@ class ISettings(interface.Interface):
         default=u'',
     )
 
-    # TODO: Change this to select widget
-    area = schema.TextLine(
-        title=u"Area",
-        required=False,
-        default=u'',
+    area = schema.Choice(
+        title=_(u'Poi_label_issue_area', default=u'Area'),
+        description=_(u'Poi_help_issue_area',
+                      default=u"Select the area this issue is relevant to."),
+        source=possibleAreas,
+        required=False
     )
 
     # TODO: Change this to select widget
@@ -62,6 +65,8 @@ class SettingsEditForm(form.EditForm):
     label = u"Poi Mail-in Defaults"
 
     def getContent(self):
+        area = self.fields.get('area')
+        area.field.vocabulary = possibleAreas(self.context)
         return dict(ISettings(self.context))
 
     @button.buttonAndHandler(u'Save', name='save')
