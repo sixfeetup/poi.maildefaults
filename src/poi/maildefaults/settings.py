@@ -7,6 +7,10 @@ from plone.z3cform import layout
 
 from Products.Poi import PoiMessageFactory as _
 from Products.Poi.content.tracker import possibleAreas
+from Products.Poi.content.tracker import possibleIssueTypes
+from Products.Poi.content.tracker import possibleSeverities
+from Products.Poi.content.tracker import possibleTargetReleases
+from Products.Poi.content.tracker import possibleAssignees
 
 KEY = 'poi.maildefaults'
 
@@ -28,32 +32,37 @@ class ISettings(interface.Interface):
         required=False
     )
 
-    # TODO: Change this to select widget
-    issue_type = schema.TextLine(
-        title=u"Issue Type",
-        required=False,
-        default=u'',
+    issue_type = schema.Choice(
+        title=_(u'Poi_label_issue_type', default=u'Issue Type'),
+        description=_(u'Poi_help_issue_type',
+                      default=u"Select the type of issue."),
+        source=possibleIssueTypes,
+        required=False
     )
 
-    # TODO: Change this to select widget
-    severity = schema.TextLine(
-        title=u"Severity",
-        required=False,
-        default=u'',
+    severity = schema.Choice(
+        title=_(u'Poi_label_issue_severity', default=u'Severity'),
+        description=_(u'Poi_help_issue_severity',
+                      default=u"Select the severity of this issue."),
+        source=possibleSeverities,
+        required=False
     )
 
-    # TODO: Change this to select widget
-    target_release = schema.TextLine(
-        title=u"Target Release",
+    target_release = schema.Choice(
+        title=_(u'Poi_label_issue_target_release', default=u'Target Release'),
+        description=_(u'Poi_help_issue_target_release',
+                      default=u"Release this issue is targetted to be fixed in"),
+        source=possibleTargetReleases,
         required=False,
-        default=u'',
     )
 
-    # TODO: Change this to select widget
-    assignee = schema.TextLine(
-        title=u"Assignee",
+    assignee = schema.Choice(
+        title=_(u'Poi_label_issue_assignee', default=u'Assignee'),
+        description=_(u'Poi_help_issue_assignee',
+                      default=u"Select which person, if any, is assigned to "
+                      u"this issue."),
+        source=possibleAssignees,
         required=False,
-        default=u'',
     )
 
 
@@ -67,6 +76,14 @@ class SettingsEditForm(form.EditForm):
     def getContent(self):
         area = self.fields.get('area')
         area.field.vocabulary = possibleAreas(self.context)
+        issue_type = self.fields.get('issue_type')
+        issue_type.field.vocabulary = possibleIssueTypes(self.context)
+        severity = self.fields.get('severity')
+        severity.field.vocabulary = possibleSeverities(self.context)
+        target_release = self.fields.get('target_release')
+        target_release.field.vocabulary = possibleTargetReleases(self.context)
+        assignee = self.fields.get('assignee')
+        assignee.field.vocabulary = possibleAssignees(self.context)
         return dict(ISettings(self.context))
 
     @button.buttonAndHandler(u'Save', name='save')
